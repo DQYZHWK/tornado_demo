@@ -1,2 +1,6 @@
-web/myclient.js
-/model/bert_pretrain/
+/__pycache__/
+/bert_pretrain/
+/pad_64/
+/pytorch_pretrained/
+
+
