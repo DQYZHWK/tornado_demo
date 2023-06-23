@@ -2,19 +2,19 @@
 import time
 from concurrent.futures.thread import ThreadPoolExecutor
 from tornado import gen, web, ioloop
-
-import time
 import torch
 import numpy as np
 from importlib import import_module
-from only_bert import Model
+from medical_cls_model.only_bert import Model
 import functools
 import json
-executor = ThreadPoolExecutor(max_workers=2)
+
 
 
 
 # start : inti Medical_Classification  offer model object 
+# 病例分类的api的工作线程池
+executor = ThreadPoolExecutor(max_workers=2)
 PAD, CLS = '[PAD]', '[CLS]'  # padding符号, bert中综合信息符号
 model = Model().to(torch.device('cpu'))
 model.load_state_dict(torch.load(model.save_path,map_location=torch.device('cpu')))
@@ -32,6 +32,7 @@ class SyncToAsyncThreadHandler(web.RequestHandler):
         response_json = json.dumps(response)
         self.set_header("Content-Type", "application/json")
         self.write(response_json)
+
     def fun(self,outer):
         start_time = time.time()
         ctx = outer.get_argument('ctx')
@@ -51,9 +52,6 @@ class SyncToAsyncThreadHandler(web.RequestHandler):
         mask = torch.LongTensor(mask).view(-1,model.pad_size)
         seq_len = torch.LongTensor([seq_len])
 
-        #print(token_ids.shape)
-        #print(mask.shape)
-        #print(seq_len.shape)
         out= model((token_ids, seq_len ,mask))
         predic = torch.max(out.data, 1)[1].cpu()
         get_time = time.time() - start_time

@@ -2,7 +2,7 @@
 import torch
 import torch.nn as nn
 # from pytorch_pretrained_bert import BertModel, BertTokenizer
-from pytorch_pretrained import BertModel, BertTokenizer
+from medical_cls_model.pytorch_pretrained import BertModel, BertTokenizer
 
 
 class Model(nn.Module):
@@ -12,12 +12,12 @@ class Model(nn.Module):
         
         self.model_name = 'bert'
         self.class_list = [x.strip('\n') for x in open(
-           './class.txt',encoding="utf-8").readlines()]                                # 类别名单
-        self.save_path = './pad_64/' + self.model_name + '.ckpt'        # 模型训练结果
+           './medical_cls_model/class.txt',encoding="utf-8").readlines()]                                # 类别名单
+        self.save_path = './medical_cls_model/pad_64/' + self.model_name + '.ckpt'        # 模型训练结果
         self.device = torch.device('cpu')   # 设备
         self.num_classes = len(self.class_list)                         # 类别.数
         self.pad_size = 64                                             # 每句话处理成的长度(短填长切)
-        self.bert_path = './bert_pretrain'
+        self.bert_path = './medical_cls_model/bert_pretrain'
         self.tokenizer = BertTokenizer.from_pretrained(self.bert_path)  # 需要自己在任务重装载预处理模型得参数
         self.hidden_size = 768
 

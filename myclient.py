@@ -1,5 +1,8 @@
 
 '''
+
+# single request
+
 import requests
 import json
 url = 'http://localhost:20001/api'
@@ -14,6 +17,13 @@ if response.status_code == 200:
 else:
     print('请求失败：', response.status_code)
 '''
+
+
+
+
+# 200个并发的请求
+
+import time
 import csv
 import threading
 import requests
@@ -25,12 +35,14 @@ def call_api(url, params_que,params_ans):
         data = response.json()
         if data['data'] == params_ans:
             print("yes")
+        else :
+            print("no")
     else:
         print('请求失败：', response.status_code)
 
 # 创建线程列表
 threads = []
-urls = ['http://localhost:20001/api' for i in range(100)]
+urls = ['http://localhost:20001/api' for i in range(200)]
 
 
 
@@ -43,9 +55,8 @@ f = open("./test.csv", encoding="UTF-8")
 freader = csv.reader(f)
 params_ans = [row[1] for row in freader]
 
-print(params_ans)
 
-
+start_time = time.time()
 
 # 创建并启动线程
 for data in zip(urls,params_que,params_ans):
@@ -57,5 +68,6 @@ for data in zip(urls,params_que,params_ans):
 for t in threads:
     t.join()
 
+print(time.time() - start_time)
 print("所有API调用完成")
 
