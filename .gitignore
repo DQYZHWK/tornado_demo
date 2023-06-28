@@ -1,2 +1,6 @@
-web/myclient.js
-/model/bert_pretrain/
+/__pycache__/
+/medical_cls_model/__pycache__/
+/medical_cls_model/bert_pretrain/
+/medical_cls_model/pad_64/
+/medical_cls_model/pytorch_pretrained/
+/test.csv
