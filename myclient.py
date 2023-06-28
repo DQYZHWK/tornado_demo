@@ -33,9 +33,8 @@ def call_api(url, params_que):
     response = requests.get(url, json=params_que,headers=headers)
     if response.status_code == 200:
         data = response.json()
-        print(data['diagnosis_class'])
-        print('Response Headers:', response.headers)
-        print('Response Body:', response.content.decode('unicode_escape'))
+        #print('Response Headers:', response.headers)
+        #print('Response Body:', response.content.decode('unicode_escape'))
     else:
         print('请求失败：', response.status_code)
 # 创建线程列表
