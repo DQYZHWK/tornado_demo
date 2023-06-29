@@ -2,12 +2,12 @@
 
 主诉查体诊疗计划识别，使用bilstm网络，基于pytorch,根据病例文本，识别 [主诉, 家族史, 传染病史, 手术史, 婚育史, 月经史, 预防接种史, 现病史,外伤史, 既往史, 个人史, 过去史, 输血史] 13种病例文本类别
 
----
+
 ### 词向量的准备
 本实验使用开源词向量[*chinese-word-vectors*](https://github.com/Embedding/Chinese-Word-Vectors)
 选用Baidu Encyclopedia（百度百科）训练得到Word Vector（300维度），提取训练语料中出现的字符对应的向量，输出Med_w2v.npz词向量表文件，9.2MB
 
----
+
 ## 实验参数/模型参数
 * 机器：单卡V100 
 * 模型：bilstm
@@ -28,7 +28,7 @@
 
 * 模型参数文件大小：13MB
 
----
+
 ## 环境
 python 3.8.0  
 pytorch 2.1.0 
@@ -36,7 +36,7 @@ tqdm
 sklearn  
 jieba  
 
----
+
 ## 模型效果
 
 class|precision|recall|f1-score|support
@@ -57,3 +57,7 @@ class|precision|recall|f1-score|support
 accuracy |   | |                    0.9590|      1000|
 macro avg|     0.9664|    0.9589|    0.9602|      1000|
 weighted avg |    0.9636|    0.9590|    0.9588|      1000| 
+
+
+## 服务封装
+[智能服务API文档](https://github.com/DQYZHWK/tornado_demo/blob/master/%E6%99%BA%E8%83%BD%E6%9C%8D%E5%8A%A11.md)
