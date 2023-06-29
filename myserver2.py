@@ -9,7 +9,7 @@ import json
 import jieba
 import re
 # 初始化病例分类的API工作线程池
-executor = ThreadPoolExecutor(max_workers=2)
+executor = ThreadPoolExecutor(max_workers=1)
 PAD, CLS = '[PAD]', '[CLS]'
 model = lstm().to('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -49,6 +49,7 @@ class MedicalClassificationHandler(web.RequestHandler):
             self.write(json.dumps(response))
 
     def process_request(self, line_words):
+        start_time =time.time()
         line_words = [model.word2index.get(word, model.word2index['UNK']) for word in line_words]
 
         if len(line_words) < model.pad_size :
@@ -59,6 +60,7 @@ class MedicalClassificationHandler(web.RequestHandler):
         line_words = torch.LongTensor(line_words).view(-1, model.pad_size)
         out = model(line_words)
         predic = torch.max(out.data, 1)[1].cpu()
+        print(time.time()-start_time)
         return model.class_list[predic]
 
 if __name__ == '__main__':
