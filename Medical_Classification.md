@@ -39,6 +39,8 @@ jieba
 
 ## 模型效果
 
+Test Loss: 0.086,  Test Acc: 95.90%
+
 class|precision|recall|f1-score|support
 --|--|--|--|--
    主诉|     1.0000|    1.0000|    1.0000|       100|
@@ -58,6 +60,10 @@ accuracy |   | |                    0.9590|      1000|
 macro avg|     0.9664|    0.9589|    0.9602|      1000|
 weighted avg |    0.9636|    0.9590|    0.9588|      1000| 
 
+评价：较之前使用的bert模型相比，测试集准确率下降0.5%，模型体量方面从80MB减少到22.2MB，简化了模型复杂度，提高了平均处理时间
 
 ## 服务封装
+
+在本地windows环境下单次请求平均处理时间0.03s，实现200个请求并发处理时间4.1s
+
 [智能服务API文档](https://github.com/DQYZHWK/tornado_demo/blob/master/%E6%99%BA%E8%83%BD%E6%9C%8D%E5%8A%A11.md)
